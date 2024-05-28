@@ -141,15 +141,15 @@
 .status-healthy {
     background-color: #D1FAE5;
     color: #10B981;
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 2px 12px;
+        border-radius: 16px;
 }
 
 .status-infected {
     background-color: #FEE2E2;
     color: #EF4444;
-    padding: 2px 8px;
-    border-radius: 4px;
+    padding: 2px 12px;
+    border-radius: 16px;
 }
 
 .pagination-list-survivors {
