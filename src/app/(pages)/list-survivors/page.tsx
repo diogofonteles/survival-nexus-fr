@@ -1,7 +1,13 @@
+'use client'
+
+import { useState } from 'react'
 import './list-survivors.css'
 import { Plus, User } from 'lucide-react'
+import ModalAddSurvivor from '../modal-add-survivor/page'
 
 export default function ListSurvivors() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const survivors = [
     { name: 'Ellie Williams', status: 'Healthy', date: 'May 14, 2023' },
     { name: 'Joel Miller', status: 'Healthy', date: 'Feb 8, 2023' },
@@ -18,7 +24,10 @@ export default function ListSurvivors() {
             <h1>List of Survivors</h1>
             <p>You have 1205 healthy survivors </p>
           </div>
-          <button className="add-survivor-button">
+          <button
+            className="add-survivor-button"
+            onClick={() => setIsModalOpen(true)}
+          >
             <div className="plus-circle">
               <Plus size={16} color="white" />
             </div>
@@ -71,6 +80,10 @@ export default function ListSurvivors() {
           </div>
         </div>
       </main>
+      <ModalAddSurvivor
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   )
 }
