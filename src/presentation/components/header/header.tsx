@@ -13,8 +13,8 @@ export function Header() {
         </div>
         <nav className="header-nav">
           <Link href="/report">Report</Link>
-          <Link href="/survivors">Survivors</Link>
-          <Link href="/inventory">Inventory</Link>
+          <Link href="/list-survivors">Survivors</Link>
+          <Link href="/list-inventories">Inventory</Link>
         </nav>
         <div className="header-profile">
           <Image

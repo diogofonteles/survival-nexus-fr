@@ -27,12 +27,12 @@ export default function ModalRequestItem({
   if (!isOpen) return null
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
+    <div className="modal-overlay-list-item">
+      <div className="modal-container-list-item">
         <button
           title="close"
           type="button"
-          className="modal-close-button"
+          className="modal-close-button-list-item"
           onClick={onClose}
         >
           <X size={24} />
@@ -40,7 +40,7 @@ export default function ModalRequestItem({
         <h2>Request Item</h2>
         <h3>From {survivor?.name}</h3>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="form-group-list-item">
             <label htmlFor="item">Choose Item</label>
             <select
               id="item"
@@ -58,11 +58,15 @@ export default function ModalRequestItem({
               <option value="Radio">Radio</option>
             </select>
           </div>
-          <div className="modal-actions">
-            <button type="button" className="cancel-button" onClick={onClose}>
+          <div className="modal-actions-list-item">
+            <button
+              type="button"
+              className="cancel-button-list-item"
+              onClick={onClose}
+            >
               Cancel
             </button>
-            <button type="submit" className="submit-button">
+            <button type="submit" className="submit-button-list-item">
               Request Item
             </button>
           </div>
