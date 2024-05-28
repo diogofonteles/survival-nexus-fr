@@ -1,0 +1,122 @@
+.home-container {
+    min-height: 100vh;
+    padding: 32px;
+    background-color: #f8fafc;
+    /* Ajustar fundo para destacar os cards */
+}
+
+.main-content {
+    padding: 24px;
+}
+
+.header-home {
+    margin-bottom: 24px;
+}
+
+.header-home h1 {
+    font-size: 32px;
+    /* Aumentar tamanho do texto */
+    font-weight: bold;
+    color: #1F2937;
+    /* gray-900 */
+}
+
+.header-home p {
+    font-size: 16px;
+    /* Aumentar tamanho do texto */
+    color: #6B7280;
+    /* gray-600 */
+}
+
+.header-home p span {
+    color: #10B981;
+    /* green-600 */
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    padding: 24px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1F2937;
+    /* gray-900 */
+    margin-bottom: 16px;
+}
+
+.card .number-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card .number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1F2937;
+    /* gray-900 */
+}
+
+.card .badge-positive {
+    font-size: 14px;
+    background-color: #D1FAE5;
+    /* Light green */
+    color: #10B981;
+    /* green-600 */
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.card .badge-negative {
+    font-size: 14px;
+    background-color: #FEE2E2;
+    /* Light red */
+    color: #EF4444;
+    /* red-600 */
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.card .last-30-days {
+    font-size: 14px;
+    color: #6B7280;
+    /* gray-600 */
+    margin-bottom: 16px;
+}
+
+.card .download-link-container {
+    border-top: 1px solid #E5E7EB;
+    /* gray-200 */
+    padding-top: 8px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.card .download-link {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1F2937;
+    /* gray-900 */
+    text-decoration: none;
+}
+
+.card .download-link:hover {
+    text-decoration: underline;
+}
