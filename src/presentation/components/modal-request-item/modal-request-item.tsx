@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './modal-request-item.css'
+import '@/presentation/components/modal-request-item/modal-request-item.css'
 import { X } from 'lucide-react'
 
 export default function ModalRequestItem({
@@ -19,9 +19,8 @@ export default function ModalRequestItem({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Aqui você pode adicionar a lógica para lidar com a solicitação do item
     console.log(`Requesting ${selectedItem} from ${survivor.name}`)
-    onClose() // Fecha o modal após o envio do formulário
+    onClose()
   }
 
   if (!isOpen) return null

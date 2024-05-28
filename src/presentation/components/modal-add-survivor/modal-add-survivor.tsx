@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './modal-add-survivor.css'
+import '@/presentation/components/modal-add-survivor/modal-add-survivor.css'
 import { X } from 'lucide-react'
 
 export default function ModalAddSurvivor({
