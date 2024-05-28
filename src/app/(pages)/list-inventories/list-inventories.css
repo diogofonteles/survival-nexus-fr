@@ -18,88 +18,12 @@
 .header-list-inventories h1 {
   font-size: 32px;
   font-weight: bold;
-  color: #1f2937;
+  color: #1F2937;
 }
 
 .header-list-inventories p {
   font-size: 16px;
-  color: #6b7280;
-}
-
-.header-list-inventories .info-icon {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.header-list-inventories .info-circle {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #4b5563;
-  color: white;
-  margin-left: 5px;
-}
-
-.header-list-inventories .info-icon .tooltip {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.header-list-inventories .info-icon .tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
-}
-
-.header-list-inventories .info-icon:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.add-inventory-button {
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.add-inventory-button .plus-circle {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #6b7280;
-}
-
-.add-inventory-button:hover {
-  background-color: hsl(220, 14%, 96%);
+  color: #6B7280;
 }
 
 .table-container {
@@ -123,33 +47,13 @@
 .table th {
   background-color: #f3f4f6;
   font-size: 16px;
-  color: #6b7280;
+  color: #6B7280;
 }
 
 .table td {
   font-size: 16px;
-  color: #1f2937;
+  color: #1F2937;
   border-bottom: 1px solid #e5e7eb;
-}
-
-.table td.status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.status-healthy {
-  background-color: #d1fae5;
-  color: #10b981;
-  padding: 2px 12px;
-  border-radius: 16px;
-}
-
-.status-infected {
-  background-color: #fee2e2;
-  color: #ef4444;
-  padding: 2px 12px;
-  border-radius: 16px;
 }
 
 .pagination-list-inventories {
@@ -158,7 +62,7 @@
   align-items: center;
   padding: 16px;
   font-size: 14px;
-  color: #6b7280;
+  color: #6B7280;
 }
 
 .pagination-list-inventories strong {
@@ -176,7 +80,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   cursor: pointer;
-  color: #1f2937;
+  color: #1F2937;
 }
 
 .pagination-list-inventories .pagination-button:hover {
@@ -199,7 +103,7 @@
 }
 
 .user-icon {
-  color: #6b7280;
+  color: #6B7280;
 }
 
 .name-bold {
@@ -207,14 +111,14 @@
   margin-left: 12px;
 }
 
-.request-button {
-  background-color: #e5e7eb;
+.request-item-button {
   padding: 8px 16px;
+  background-color: #e5e7eb;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.request-button:hover {
+.request-item-button:hover {
   background-color: #d1d5db;
 }
