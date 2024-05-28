@@ -1,10 +1,10 @@
-import './home.css'
+import './report.css'
 
-export default function Home() {
+export default function Report() {
   return (
-    <div className="home-container">
+    <div className="report-container">
       <main className="main-content">
-        <div className="header-home">
+        <div className="header-report">
           <h1>Reports</h1>
           <p>
             Your camp has grown <span>+5%</span> this month

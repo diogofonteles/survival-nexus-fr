@@ -1,4 +1,4 @@
-.home-container {
+.report-container {
     min-height: 100vh;
     padding: 32px;
     background-color: #f8fafc;
@@ -9,11 +9,11 @@
     padding: 24px;
 }
 
-.header-home {
+.header-report {
     margin-bottom: 24px;
 }
 
-.header-home h1 {
+.header-report h1 {
     font-size: 32px;
     /* Aumentar tamanho do texto */
     font-weight: bold;
@@ -21,14 +21,14 @@
     /* gray-900 */
 }
 
-.header-home p {
+.header-report p {
     font-size: 16px;
     /* Aumentar tamanho do texto */
     color: #6B7280;
     /* gray-600 */
 }
 
-.header-home p span {
+.header-report p span {
     color: #10B981;
     /* green-600 */
 }
