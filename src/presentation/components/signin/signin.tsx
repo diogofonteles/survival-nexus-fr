@@ -5,14 +5,19 @@ import Image from 'next/image'
 import './signin.css'
 import icon from '@/app/icon.png'
 import ModalAddSurvivor from '@/presentation/components/modal-add-survivor/modal-add-survivor'
+import { Authentication } from '@/domain/usecases/authentication'
+import { makeRemoteAuthentication } from '@/main/factories/usecases/remote-authentication-factory'
+// import { Validation } from '@/presentation/protocols'
 
 export default function Signin() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const authentication: Authentication = makeRemoteAuthentication()
 
   const handleSignin = (e: React.FormEvent) => {
     e.preventDefault()
+    authentication.auth({ email, password })
     console.log('Email:', email, 'Password:', password)
   }
 
