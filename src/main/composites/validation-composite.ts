@@ -12,7 +12,7 @@ export class ValidationComposite implements Validation {
 
   validate(
     fieldName: string,
-    input: { [key: string]: string | number | object },
+    input: { [key: string]: string | number | object } | string,
   ): string | null {
     const validators = this.validators.filter((v) => v.field === fieldName)
     for (const validator of validators) {
