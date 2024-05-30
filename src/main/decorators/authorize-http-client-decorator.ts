@@ -1,5 +1,6 @@
 import { HttpClient, HttpRequest, HttpResponse } from '@/data/protocols/http'
 import { GetStorage } from '@/data/protocols/cache'
+import { Observable } from 'rxjs'
 
 export class AuthorizeHttpClientDecorator implements HttpClient {
   constructor(
@@ -10,7 +11,7 @@ export class AuthorizeHttpClientDecorator implements HttpClient {
     this.httpClient = httpClient
   }
 
-  async request(data: HttpRequest): Promise<HttpResponse> {
+  request(data: HttpRequest): Observable<HttpResponse> {
     const account = this.getStorage.get('account')
     if (account?.access_token) {
       Object.assign(data, {
@@ -19,7 +20,6 @@ export class AuthorizeHttpClientDecorator implements HttpClient {
         }),
       })
     }
-    const httpResponse = await this.httpClient.request(data)
-    return httpResponse
+    return this.httpClient.request(data)
   }
 }

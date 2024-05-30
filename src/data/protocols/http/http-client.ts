@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs'
+
 export type HttpMethod = 'post' | 'get' | 'put' | 'delete'
 
 export type HttpRequest = {
@@ -23,5 +25,5 @@ export type HttpResponse<T = unknown> = {
 }
 
 export interface HttpClient<R = unknown> {
-  request: (data: HttpRequest) => Promise<HttpResponse<R>>
+  request: (data: HttpRequest) => Observable<HttpResponse<R>>
 }

@@ -4,6 +4,7 @@ import {
   AuthenticationParams,
 } from '@/domain/usecases/authentication'
 import { HttpClient, HttpStatusCode } from '../protocols/http/http-client'
+import { Observable, catchError, from, map } from 'rxjs'
 
 type RemoteAuthenticationModel = AuthenticationModel
 
@@ -16,22 +17,28 @@ export class RemoteAuthentication implements Authentication {
     this.httpClient = httpClient
   }
 
-  async auth(params: AuthenticationParams): Promise<AuthenticationModel> {
-    const httpResponse = await this.httpClient.request({
-      url: this.url,
-      method: 'post',
-      body: params,
-    })
-
-    console.log('httpResponse', httpResponse)
-
-    switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok:
-        return httpResponse.body ?? ({} as AuthenticationModel)
-      case HttpStatusCode.unauthorized:
-        throw new Error('Credenciais inválidas')
-      default:
-        throw new Error('Erro inesperado')
-    }
+  auth(params: AuthenticationParams): Observable<AuthenticationModel> {
+    return from(
+      this.httpClient.request({
+        url: this.url,
+        method: 'post',
+        body: params,
+      }),
+    ).pipe(
+      map((httpResponse) => {
+        switch (httpResponse.statusCode) {
+          case HttpStatusCode.ok:
+            return httpResponse.body ?? ({} as AuthenticationModel)
+          case HttpStatusCode.unauthorized:
+            throw new Error('Invalid credentials')
+          default:
+            throw new Error('Unexpected error')
+        }
+      }),
+      catchError((error) => {
+        console.error('Unexpected error: ', error)
+        throw error
+      }),
+    )
   }
 }

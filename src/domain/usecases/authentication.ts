@@ -1,4 +1,5 @@
 import { AccountModel } from '@/domain/models/account-model'
+import { Observable } from 'rxjs'
 
 export type AuthenticationParams = {
   email: string
@@ -8,5 +9,5 @@ export type AuthenticationParams = {
 export type AuthenticationModel = AccountModel
 
 export interface Authentication {
-  auth: (params: AuthenticationParams) => Promise<AuthenticationModel>
+  auth: (params: AuthenticationParams) => Observable<AuthenticationModel>
 }
