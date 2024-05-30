@@ -18,7 +18,7 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   }, [getCurrentAccount, router])
 
   if (!getCurrentAccount()?.access_token) {
-    return null // ou um spinner de carregamento, se preferir
+    return null
   }
 
   return <>{children}</>

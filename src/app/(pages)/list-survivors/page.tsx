@@ -1,5 +1,6 @@
 import ListSurvivors from '@/presentation/components/list-survivors/list-survivors'
 import { ReactNode } from 'react'
+import { PrivateRoute } from '@/main/proxies'
 
 export default function ListSurvivorsPage({
   children,
@@ -7,9 +8,11 @@ export default function ListSurvivorsPage({
   children: ReactNode
 }) {
   return (
-    <div>
-      <ListSurvivors />
-      {children}
-    </div>
+    <PrivateRoute>
+      <div>
+        <ListSurvivors />
+        {children}
+      </div>
+    </PrivateRoute>
   )
 }
