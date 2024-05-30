@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { LoadSurvivorsModel } from '@/domain/usecases/load-survivors'
+import { makeRemoteLoadSurvivors } from '@/main/factories/usecases/remote-load-survivors-factory'
 import '@/presentation/components/list-survivors/list-survivors.css'
 
 import { Plus, User } from 'lucide-react'
@@ -8,14 +10,38 @@ import ModalAddSurvivor from '@/presentation/components/modal-add-survivor/modal
 
 export default function ListSurvivors() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [survivors, setSurvivors] = useState<LoadSurvivorsModel[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const loadSurvivors = useRef(makeRemoteLoadSurvivors())
 
-  const survivors = [
-    { name: 'Ellie Williams', status: 'Healthy', date: 'May 14, 2023' },
-    { name: 'Joel Miller', status: 'Healthy', date: 'Feb 8, 2023' },
-    { name: 'Tommy Miller', status: 'Healthy', date: 'Feb 4, 2023' },
-    { name: 'Abby Anderson', status: 'Healthy', date: 'Dec 12, 2022' },
-    { name: 'Lev Cheng', status: 'Infected', date: 'Dec 12, 2022' },
-  ]
+  useEffect(() => {
+    const subscription = loadSurvivors.current.load(currentPage).subscribe({
+      next: (data) => {
+        console.log('Survivors data received:', data)
+        setSurvivors(data)
+      },
+      error: (error) => {
+        console.error('Error loading survivors:', error)
+      },
+    })
+
+    return () => {
+      console.log('Unsubscribing from survivors data stream')
+      subscription.unsubscribe()
+    }
+  }, [currentPage])
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1)
+  }
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+  }
+
+  if (!survivors.length) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className="list-container">
@@ -23,7 +49,10 @@ export default function ListSurvivors() {
         <div className="header-list-survivors">
           <div>
             <h1>List of Survivors</h1>
-            <p>You have 1205 healthy survivors </p>
+            <p>
+              You have {survivors.filter((s) => !s.props.infected).length}{' '}
+              healthy survivors{' '}
+            </p>
           </div>
           <button
             className="add-survivor-button"
@@ -51,20 +80,22 @@ export default function ListSurvivors() {
                     <div className="user-icon-circle">
                       <User size={16} className="user-icon" />
                     </div>
-                    <span className="name-bold">{survivor.name}</span>
+                    <span className="name-bold">{survivor.props.name}</span>
                   </td>
                   <td className="status">
                     <span
                       className={
-                        survivor.status === 'Healthy'
-                          ? 'status-healthy'
-                          : 'status-infected'
+                        survivor.props.infected
+                          ? 'status-infected'
+                          : 'status-healthy'
                       }
                     >
-                      {survivor.status}
+                      {survivor.props.infected ? 'Infected' : 'Healthy'}
                     </span>
                   </td>
-                  <td>{survivor.date}</td>
+                  <td>
+                    {new Date(survivor.props.createdAt).toLocaleDateString()}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -72,12 +103,20 @@ export default function ListSurvivors() {
         </div>
         <div className="pagination-list-survivors">
           <div>
-            Showing <strong>1</strong> to <strong>5</strong> of{' '}
+            Showing <strong>1</strong> to <strong>{survivors.length}</strong> of{' '}
             <strong>100</strong> Results
           </div>
           <div className="buttons">
-            <button className="pagination-button">Previous</button>
-            <button className="pagination-button">Next</button>
+            <button
+              className="pagination-button"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <button className="pagination-button" onClick={handleNextPage}>
+              Next
+            </button>
           </div>
         </div>
       </main>
