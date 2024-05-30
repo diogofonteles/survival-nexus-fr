@@ -1,0 +1,75 @@
+.inputWrap {
+  position: relative;
+  margin-bottom: 16px;
+
+  &[data-status="valid"] {
+    border-bottom-color: #4CAF50;
+
+    &::after {
+      background-color: #4CAF50;
+    }
+  }
+
+  &[data-status="invalid"] {
+    border-bottom-color: #EF5350;
+
+    &::after {
+      background-color: #EF5350;
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: #666;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transform-origin: 0%;
+    transform: scaleX(0);
+    transition: transform 400ms ease;
+  }
+
+  &:focus-within {
+    border-color: transparent;
+
+    &::after {
+      transform: scaleX(1);
+    }
+
+    label {
+      transform: scale(0.9) translateY(-20px);
+    }
+  }
+
+  input {
+    width: 100%;
+    line-height: 24px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+
+    &:not(:placeholder-shown)+label {
+      transform: scale(0.9) translateY(-20px);
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: text;
+    transform-origin: 0%;
+    transition: transform 400ms ease;
+  }
+
+  .status {
+    position: absolute;
+    right: 8px;
+    font-size: 10px;
+    cursor: help;
+  }
+}

@@ -1,3 +1,5 @@
+'use client'
+
 import '@/presentation/components/report/report.css'
 
 export default function Report() {

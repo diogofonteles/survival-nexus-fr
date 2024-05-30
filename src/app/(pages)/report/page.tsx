@@ -1,3 +1,5 @@
+'use client'
+
 import Report from '@/presentation/components/report/report'
 import { ReactNode } from 'react'
 

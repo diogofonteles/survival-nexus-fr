@@ -8,7 +8,7 @@ export type HttpRequest = {
 }
 
 export enum HttpStatusCode {
-  ok = 200,
+  ok = 200 | 201,
   noContent = 204,
   badRequest = 400,
   unauthorized = 401,

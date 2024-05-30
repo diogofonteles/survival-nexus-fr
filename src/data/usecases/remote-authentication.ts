@@ -23,6 +23,8 @@ export class RemoteAuthentication implements Authentication {
       body: params,
     })
 
+    console.log('httpResponse', httpResponse)
+
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
         return httpResponse.body ?? ({} as AuthenticationModel)
