@@ -1,36 +1,35 @@
 import {
-  Authentication,
-  AuthenticationModel,
-  AuthenticationParams,
-} from '@/domain/usecases/authentication'
+  LoadSurvivors,
+  LoadSurvivorsModel,
+} from '@/domain/usecases/load-survivors'
 import { HttpClient, HttpStatusCode } from '../protocols/http'
 import { Observable, catchError, from, map } from 'rxjs'
 
-type RemoteAuthenticationModel = AuthenticationModel
+export type RemoteLoadSurvivorsModel = LoadSurvivorsModel
 
-export class RemoteAuthentication implements Authentication {
+export class RemoteLoadSurvivors implements LoadSurvivors {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpClient<RemoteAuthenticationModel>,
+    private readonly httpClient: HttpClient<RemoteLoadSurvivorsModel[]>,
   ) {
     this.url = url
     this.httpClient = httpClient
   }
 
-  auth(params: AuthenticationParams): Observable<AuthenticationModel> {
+  load(page: number = 1): Observable<LoadSurvivorsModel[]> {
+    const paginatedUrl = `${this.url}?page=${page}`
     return from(
       this.httpClient.request({
-        url: this.url,
-        method: 'post',
-        body: params,
+        url: paginatedUrl,
+        method: 'get',
       }),
     ).pipe(
       map((httpResponse) => {
         switch (httpResponse.statusCode) {
-          case HttpStatusCode.ok201:
-            return httpResponse.body ?? ({} as AuthenticationModel)
+          case HttpStatusCode.ok200:
+            return httpResponse.body ?? ([] as LoadSurvivorsModel[])
           case HttpStatusCode.unauthorized:
-            throw new Error('Invalid credentials')
+            throw new Error('Unauthorized')
           default:
             throw new Error('Unexpected error')
         }

@@ -10,7 +10,8 @@ export type HttpRequest = {
 }
 
 export enum HttpStatusCode {
-  ok = 200 | 201,
+  ok200 = 200,
+  ok201 = 201,
   noContent = 204,
   badRequest = 400,
   unauthorized = 401,
@@ -24,6 +25,6 @@ export type HttpResponse<T = unknown> = {
   body?: T
 }
 
-export interface HttpClient<R = unknown> {
+export interface HttpClient<R = any> {
   request: (data: HttpRequest) => Observable<HttpResponse<R>>
 }

@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import { makeRemoteAddSurvivor } from '@/main/factories/usecases/remote-add-survivor-factory'
 import '@/presentation/components/modal-add-survivor/modal-add-survivor.css'
 import { X } from 'lucide-react'
+import { SurvivorModel } from '@/domain/usecases/add-survivor'
+import { useSetRecoilState } from 'recoil'
+import { survivorsState } from '@/presentation/components/list-survivors/components/atoms'
 
 export default function ModalAddSurvivor({
   isOpen,
@@ -9,6 +13,7 @@ export default function ModalAddSurvivor({
   isOpen: boolean
   onClose: () => void
 }) {
+  const setSurvivors = useSetRecoilState(survivorsState)
   const [formData, setFormData] = useState({
     fullName: '',
     status: '',
@@ -27,10 +32,38 @@ export default function ModalAddSurvivor({
     setFormData({ ...formData, [name]: value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
-    onClose()
+    const addSurvivor = makeRemoteAddSurvivor()
+    const survivor: SurvivorModel = {
+      name: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+      age: parseInt(formData.age, 10),
+      gender: formData.gender,
+      lastLocation: {
+        latitude: parseFloat(formData.latitude),
+        longitude: parseFloat(formData.longitude),
+      },
+      infected: formData.status === 'Infected',
+    }
+
+    const newSurvivor = {
+      props: {
+        ...survivor,
+        createdAt: new Date().toISOString(),
+      },
+      _id: { value: '' },
+    }
+
+    try {
+      await addSurvivor.add(survivor).toPromise()
+      setSurvivors((prevSurvivors) => [...prevSurvivors, newSurvivor])
+      console.log('Survivor added successfully')
+      onClose()
+    } catch (error) {
+      console.error('Error adding survivor:', error)
+    }
   }
 
   if (!isOpen) return null

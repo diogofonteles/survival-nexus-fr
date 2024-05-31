@@ -1,36 +1,30 @@
-import {
-  Authentication,
-  AuthenticationModel,
-  AuthenticationParams,
-} from '@/domain/usecases/authentication'
+import { AddSurvivor, SurvivorModel } from '@/domain/usecases/add-survivor'
 import { HttpClient, HttpStatusCode } from '../protocols/http'
-import { Observable, catchError, from, map } from 'rxjs'
+import { Observable, from, catchError, map } from 'rxjs'
 
-type RemoteAuthenticationModel = AuthenticationModel
-
-export class RemoteAuthentication implements Authentication {
+export class RemoteAddSurvivor implements AddSurvivor {
   constructor(
     private readonly url: string,
-    private readonly httpClient: HttpClient<RemoteAuthenticationModel>,
+    private readonly httpClient: HttpClient<void>,
   ) {
     this.url = url
     this.httpClient = httpClient
   }
 
-  auth(params: AuthenticationParams): Observable<AuthenticationModel> {
+  add(survivor: SurvivorModel): Observable<void> {
     return from(
       this.httpClient.request({
         url: this.url,
         method: 'post',
-        body: params,
+        body: survivor,
       }),
     ).pipe(
       map((httpResponse) => {
         switch (httpResponse.statusCode) {
           case HttpStatusCode.ok201:
-            return httpResponse.body ?? ({} as AuthenticationModel)
+            return
           case HttpStatusCode.unauthorized:
-            throw new Error('Invalid credentials')
+            throw new Error('Unauthorized')
           default:
             throw new Error('Unexpected error')
         }

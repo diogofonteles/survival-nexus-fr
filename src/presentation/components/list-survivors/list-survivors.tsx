@@ -1,17 +1,19 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+
 import { LoadSurvivorsModel } from '@/domain/usecases/load-survivors'
 import { makeRemoteLoadSurvivors } from '@/main/factories/usecases/remote-load-survivors-factory'
 import '@/presentation/components/list-survivors/list-survivors.css'
-
 import { Plus, User } from 'lucide-react'
 import ModalAddSurvivor from '@/presentation/components/modal-add-survivor/modal-add-survivor'
+import { currentPageState, survivorsState } from './components/atoms'
 
 export default function ListSurvivors() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [survivors, setSurvivors] = useState<LoadSurvivorsModel[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [survivors, setSurvivors] = useRecoilState(survivorsState)
+  const [currentPage, setCurrentPage] = useRecoilState(currentPageState)
   const loadSurvivors = useRef(makeRemoteLoadSurvivors())
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function ListSurvivors() {
       console.log('Unsubscribing from survivors data stream')
       subscription.unsubscribe()
     }
-  }, [currentPage])
+  }, [currentPage, setSurvivors])
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1)
